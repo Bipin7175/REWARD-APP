@@ -1,22 +1,22 @@
 import React from "react";
 import "./styles.css";
-import { data, calRewardPoint } from "./data";
+import { myData, calReward } from "./myData";
 
 export default function App() {
   let eachMonth = (cust, month) =>
-    data[cust][month].reduce((total, each) => calRewardPoint(each) + total, 0);
+  myData[cust][month].reduce((total, each) => calReward(each) + total, 0);
 
   let total = cust =>
-    Object.values(data[cust])
+    Object.values(myData[cust])
       .flat()
-      .reduce((total, each) => calRewardPoint(each) + total, 0);
+      .reduce((total, each) => calReward(each) + total, 0);
 
   let totalRecord = cust => {
     return <h4>Total&nbsp;{total(cust)}</h4>;
   };
 
   let innerRecord = cust => {
-    return Object.keys(data[cust]).map(month => {
+    return Object.keys(myData[cust]).map(month => {
       return (
         <>
           <h4>
@@ -27,7 +27,7 @@ export default function App() {
     });
   };
 
-  let record = Object.keys(data).map(cust => {
+  let record = Object.keys(myData).map(cust => {
     let inner = innerRecord(cust);
     let total = totalRecord(cust);
     return (
